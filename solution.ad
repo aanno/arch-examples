@@ -48,6 +48,8 @@ Thomas Pasch <aannoaanno@gmail.com>
 
 ==== Scenario I
 
+image::szenario-1.comp.svg[Static,300]
+
 * orchestration of services could be done by a server (microservice?)
 ** status could be tracked
 ** errors in service could be coped with
@@ -56,12 +58,16 @@ Thomas Pasch <aannoaanno@gmail.com>
 
 ==== Scenario II
 
+image::szenario-2.comp.svg[Static,300]
+
 * use message queue system with at least once semantics
 ** here, orchestration is simple
 ** delivery of SMS and Mail is asynchronous by nature
 ** no status tracking needed (but maybe DLQs)
 
 ==== Scenario III
+
+image::szenario-3.comp.svg[Static,300]
 
 * go cloud
 
