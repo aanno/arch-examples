@@ -23,7 +23,7 @@ Thomas Pasch <aannoaanno@gmail.com>
 === Observations
 
 * only 240 templates are used regularly
-* backend are 'error prone'
+* backends are 'error prone'
 * crave nearly transactional semantics
 * orchestration is done by fat client
 
@@ -77,7 +77,8 @@ image::szenario-2.comp.svg[Static,700]
 
 image::szenario-3.comp.svg[Static,700]
 
-* if going cloud, transformer is the only component to migrate/rewrite
+* go cloud!
+** transformer is the only component to migrate/rewrite
 ** there are cloud services for everything else
 * other pros and cons like in scenario II
 
