@@ -20,14 +20,14 @@ Thomas Pasch <aannoaanno@gmail.com>
 *** with PDF attachment
 ** SMS (plain text)
 
-=== Observations
+== Observations
 
 * only 240 templates are used regularly
 * backends are 'error prone'
 * crave nearly transactional semantics
 * orchestration is done by fat client
 
-=== Questions
+== Questions
 
 * wire protocol between client and services
 * kind of db
@@ -39,27 +39,27 @@ Thomas Pasch <aannoaanno@gmail.com>
 * technical details of all components
   (i.e. PDF generation, SMTP/SMS gateway, TDB)
 
-=== Solution ideas
+== Solution ideas
 
 * transformer could be split along output formats
 ** removing complexity
 
-==== Scenario I
+=== Scenario I
 
 image::szenario-1.comp.svg[Static,700]
 
 * orchestration of services could be done by a server (microservice?)
 ** status could be tracked
 
-====== Pros
+==== Pros
 * errors in services could be coped with
 * decouples client from services
 * services could be rewritten _later_
 
-====== Cons
+==== Cons
 * services unaltered, still 'error prone'
 
-==== Scenario II
+=== Scenario II
 
 image::szenario-2.comp.svg[Static,700]
 
@@ -67,13 +67,13 @@ image::szenario-2.comp.svg[Static,700]
 ** here, orchestration is simple
 ** delivery of SMS and Mail is asynchronous by nature
 
-====== Pros
+==== Pros
 * no status tracking needed (but maybe DLQs)
 
-====== Cons
+==== Cons
 * services must be changed/rewritten
 
-==== Scenario III
+=== Scenario III
 
 image::szenario-3.comp.svg[Static,700]
 
@@ -82,7 +82,7 @@ image::szenario-3.comp.svg[Static,700]
 ** there are cloud services for everything else
 * other pros and cons like in scenario II
 
-=== Evaluate
+== Evaluate
 
 * cloud notification services, e.g. AWS SNS and SES
   as gateway replacement
