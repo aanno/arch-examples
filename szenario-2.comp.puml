@@ -1,9 +1,25 @@
 @startuml
 !pragma layout smetana
+!pragma horizontalLineBetweenDifferentPackageAllowed
 
-[First component]
-[Another component] as Comp2
-component Comp3
-component [Last\ncomponent] as Comp4
+node "client node" {
+    [fat client]
+}
+
+component "server side" {
+    () "in" as in
+    [Transformer]
+    [SMS Gateway]
+    [SMTP Gateway]
+    database {
+        [TDB]
+    }
+}
+
+[fat client] -r-> in : uses
+in -d-> [TDB] : uses
+in -r-> [Transformer] : queue
+[Transformer] -d-> [SMS Gateway] : queue
+[Transformer] -d-> [SMTP Gateway] : queue
 
 @enduml

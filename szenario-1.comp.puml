@@ -1,12 +1,12 @@
 @startuml
 !pragma layout smetana
+!pragma horizontalLineBetweenDifferentPackageAllowed
 
 node "client node" {
     [fat client]
 }
 
-
-package "server side" {
+component "server side" {
     [orchestration]
     package "services" {
         [Transformer]
@@ -18,11 +18,10 @@ package "server side" {
     }
 }
 
-[fat client] -r-> [orchestration]
+[fat client] -r-> [orchestration] : uses
 [orchestration] -> [TDB]
 [orchestration] -d-> [Transformer]
 [orchestration] -> [SMS Gateway]
 [orchestration] -> [SMTP Gateway]
-
 
 @enduml

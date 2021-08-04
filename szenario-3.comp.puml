@@ -1,9 +1,23 @@
 @startuml
 !pragma layout smetana
+!pragma horizontalLineBetweenDifferentPackageAllowed
 
-[First component]
-[Another component] as Comp2
-component Comp3
-component [Last\ncomponent] as Comp4
+node "client node" {
+    [fat client]
+}
+
+cloud "AWS" {
+    () "API Gateway" as in
+    [ <<Lambda>>\nTransformer ] as trans
+    [SNS]
+    database "S3" {
+        [object store]
+    }
+}
+
+[fat client] -r-> in : uses
+in -d-> [object store] : uses
+in -r-> trans : sqs
+trans -d-> [SNS] : sqs
 
 @enduml

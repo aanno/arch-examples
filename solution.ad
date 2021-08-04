@@ -33,8 +33,8 @@ Thomas Pasch <aannoaanno@gmail.com>
 * kind of db
 * volume of messages in time
 * size of messages send
-* send only (or also store?)
-* mail object: text mails or html mails
+* send only (or also stored?)
+* mail object: _text_ mails or _html_ mails
 * kind and frequency of problems with 'error prone' services
 * technical details of all components
   (i.e. PDF generation, SMTP/SMS gateway, TDB)
@@ -43,8 +43,6 @@ Thomas Pasch <aannoaanno@gmail.com>
 
 * transformer could be split along output formats
 ** removing complexity
-* if going cloud, transformer is the only component to migrate/rewrite
-** there are cloud services for everything else
 
 ==== Scenario I
 
@@ -52,9 +50,14 @@ image::szenario-1.comp.svg[Static,700]
 
 * orchestration of services could be done by a server (microservice?)
 ** status could be tracked
-** errors in service could be coped with
-** decouples client from services
-** services could be rewritten if needed
+
+====== Pros
+* errors in services could be coped with
+* decouples client from services
+* services could be rewritten _later_
+
+====== Cons
+* services unaltered, still 'error prone'
 
 ==== Scenario II
 
@@ -63,13 +66,20 @@ image::szenario-2.comp.svg[Static,700]
 * use message queue system with at least once semantics
 ** here, orchestration is simple
 ** delivery of SMS and Mail is asynchronous by nature
-** no status tracking needed (but maybe DLQs)
+
+====== Pros
+* no status tracking needed (but maybe DLQs)
+
+====== Cons
+* services must be changed/rewritten
 
 ==== Scenario III
 
 image::szenario-3.comp.svg[Static,700]
 
-* go cloud
+* if going cloud, transformer is the only component to migrate/rewrite
+** there are cloud services for everything else
+* other pros and cons like in scenario II
 
 === Evaluate
 
