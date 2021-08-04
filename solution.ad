@@ -48,7 +48,7 @@ Thomas Pasch <aannoaanno@gmail.com>
 
 ==== Scenario I
 
-image::szenario-1.comp.svg[Static,300]
+image::szenario-1.comp.svg[Static,700]
 
 * orchestration of services could be done by a server (microservice?)
 ** status could be tracked
@@ -58,7 +58,7 @@ image::szenario-1.comp.svg[Static,300]
 
 ==== Scenario II
 
-image::szenario-2.comp.svg[Static,300]
+image::szenario-2.comp.svg[Static,700]
 
 * use message queue system with at least once semantics
 ** here, orchestration is simple
@@ -67,7 +67,7 @@ image::szenario-2.comp.svg[Static,300]
 
 ==== Scenario III
 
-image::szenario-3.comp.svg[Static,300]
+image::szenario-3.comp.svg[Static,700]
 
 * go cloud
 

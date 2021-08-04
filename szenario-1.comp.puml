@@ -1,9 +1,28 @@
 @startuml
 !pragma layout smetana
 
-[First component]
-[Another component] as Comp2
-component Comp3
-component [Last\ncomponent] as Comp4
+node "client node" {
+    [fat client]
+}
+
+
+package "server side" {
+    [orchestration]
+    package "services" {
+        [Transformer]
+        [SMS Gateway]
+        [SMTP Gateway]
+    }
+    database {
+        [TDB]
+    }
+}
+
+[fat client] -r-> [orchestration]
+[orchestration] -> [TDB]
+[orchestration] -d-> [Transformer]
+[orchestration] -> [SMS Gateway]
+[orchestration] -> [SMTP Gateway]
+
 
 @enduml
