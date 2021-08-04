@@ -1,0 +1,75 @@
+= Volume Message Sending
+Thomas Pasch <aannoaanno@gmail.com>
+:description: key points for discussion of 'Welcome' task
+:sectanchors: 
+:url-repo: git@github.com:essmuc/arch.git
+
+== Baseline
+
+* templates in XML stored in TDB
+* transformer service takes
+** template (name)
+** variables (key-value attributes)
+* transformer service results in
+** mail object
+** sms text
+** PDF
+* Gateway
+** SMTP (mail sending)
+*** plain 
+*** with PDF attachment
+** SMS (plain text)
+
+=== Observations
+
+* only 240 templates are used regularly
+* backend are 'error prone'
+* crave nearly transactional semantics
+* orchestration is done by fat client
+
+=== Questions
+
+* wire protocol between client and services
+* kind of db
+* volume of messages in time
+* size of messages send
+* send only (or also store?)
+* mail object: text mails or html mails
+* kind and frequency of problems with 'error prone' services
+* technical details of all components
+  (i.e. PDF generation, SMTP/SMS gateway, TDB)
+
+=== Solution ideas
+
+* transformer could be split along output formats
+** removing complexity
+* if going cloud, transformer is the only component to migrate/rewrite
+** there are cloud services for everything else
+
+==== Scenario I
+
+* orchestration of services could be done by a server (microservice?)
+** status could be tracked
+** errors in service could be coped with
+** decouples client from services
+** services could be rewritten if needed
+
+==== Scenario II
+
+* use message queue system with at least once semantics
+** here, orchestration is simple
+** delivery of SMS and Mail is asynchronous by nature
+** no status tracking needed (but maybe DLQs)
+
+==== Scenario III
+
+* go cloud
+
+=== Evaluate
+
+* cloud notification services, e.g. AWS SNS and SES
+  as gateway replacement
+* css print server, e.g. PrinceXML
+  as PDF generation replacement
+* if only 240 template are used, TDB maybe is superfluous
+** evaluate an cloud object store, e.g. AWS S3
