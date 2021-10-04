@@ -1,0 +1,40 @@
+@startuml
+!pragma layout smetana
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+actor admin as admin
+[keycloak] as kc
+[AD] as ad
+
+cloud "docker-swarm" {    
+    [keycloak\ngatekeeper] as gk
+    [<<reverse proxy>>\ntraefik] as tf
+    [portainer]
+    package {
+        [microservices] as ms
+    }
+    [grafana]
+    [prometheus]
+    () "API Gateway" as in
+    [ELK] as elk
+    [jhipster\nregistry] as registry
+}
+
+admin -> gk : https
+kc <-r-> ad : federation
+gk -u-> kc : admin SSO
+gk -d-> tf : dispatch
+tf -d-> [portainer] : cloud management
+tf -> [grafana]
+tf -d-> elk : query logs
+[prometheus] -l-> [grafana] : alerting
+ms -d-> elk : central logging
+ms -l-> [prometheus] : monitoring
+ms <-d-> registry : register, get config
+ms -> kc : SSO
+
+actor user as user
+in <-u- user : https
+in -l-> ms : http
+
+@enduml
