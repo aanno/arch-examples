@@ -16,8 +16,8 @@ cloud "AWS" {
 }
 
 [fat client] -r-> in : uses
-in -d-> [object store] : uses
+trans -d-> [object store] : uses
 in -r-> trans : sqs
-trans -d-> [SNS] : sqs
+trans -r-> [SNS] : sqs
 
 @enduml
