@@ -5,13 +5,14 @@
 actor admin as admin
 [keycloak] as kc
 [AD] as ad
+kc <-r-> ad : federation
 
 cloud "docker-swarm" {    
-    [keycloak\ngatekeeper] as gk
+    [kc-gatekeeper] as gk
     [<<reverse proxy>>\ntraefik] as tf
     [portainer]
-    package {
-        [microservices] as ms
+    package "cloud-native" {
+        [microservices] as ms #LightBlue
     }
     [grafana]
     [prometheus]
@@ -21,7 +22,6 @@ cloud "docker-swarm" {
 }
 
 admin -> gk : https
-kc <-r-> ad : federation
 gk -u-> kc : admin SSO
 gk -d-> tf : dispatch
 tf -d-> [portainer] : cloud management

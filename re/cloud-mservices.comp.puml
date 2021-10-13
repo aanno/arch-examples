@@ -1,0 +1,31 @@
+@startuml
+'!pragma layout smetana
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+component "cloud-native" as cn {
+  [ms1] as ms #LightBlue
+  [ms2] as ms2 #LightBlue
+
+  [<<cluster>>\nSolr] as solr
+  [<<cluster>>\nRabbitMQ] as rabbit
+  
+  ms -d-> solr : query
+  ms -r-> ms2
+  solr <-r- rabbit : update index
+}
+
+queue "QueueEx1" 
+component "Ex1"
+cn -[hidden]r- QueueEx1
+
+database "<<cluster>>\nOracle" {
+    [common store] as store
+}
+
+ms -r-> QueueEx1
+QueueEx1 -> Ex1
+ms --> store
+ms2 --> store
+store --> rabbit: Deltas
+
+@enduml
