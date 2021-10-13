@@ -1,0 +1,41 @@
+@startuml
+!pragma layout smetana
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+component "as24" as prov
+file "cars" as file
+
+prov -r-> file
+
+folder "wr" {
+    [crawler] as crawl
+    queue queue1 as q1
+    [calculator] as cal
+    queue queue2 as q2
+    
+    database {
+        [rates]
+        [clients]
+    }
+
+    [webapp] as wa
+    [backoffice] as bo
+}
+
+actor client
+actor backoffice
+actor support
+
+file <-r- crawl
+crawl -d-> q1
+q1 -d-> cal
+cal -d-> q2
+q2 --> rates
+rates <-- wa
+clients <-- wa
+wa <-- client
+clients <-- support
+rates <-- bo
+bo <-- backoffice
+
+@enduml
